@@ -2,14 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/user.routes';
+import dotenv from 'dotenv';
 
 const app = express();
 const port = 3000;
 
 // Connect to MongoDB
 
+// Load environment variables from .env file
+dotenv.config();
 
-mongoose.connect('mongodb://localhost:27017/nepal-tourism');
+const mongoURI:string = process.env.MONGODB_URI ?? '';
+mongoose.connect(mongoURI);
 
 mongoose.connection.on('error', (err) => {
     console.error('MongoDB connection error:', err);
